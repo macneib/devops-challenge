@@ -1,0 +1,10 @@
+Nginx web server is running on :
+
+>  http://ec2-99-79-43-11.ca-central-1.compute.amazonaws.com/ OR
+>  99.79.43.11 [PUBLIC IP]
+
+To check Version details on Nginx :
+
+> http://ec2-99-79-43-11.ca-central-1.compute.amazonaws.com/version.txt OR
+> 99.79.43.11/version.txt
+
