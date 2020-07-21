@@ -1,0 +1,5 @@
+Created a Web Server running on my EC2 instance which says hello world from region specified. 
+This is done by adding a bootstrap script while configuring EC2 instance. Please hit below URL to check the details.
+
+> http://ec2-35-182-88-109.ca-central-1.compute.amazonaws.com/
+> 35.182.88.109 [ Public IP ]
