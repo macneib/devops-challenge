@@ -18,4 +18,4 @@ sudo yum -y install ansible
 ## To verify version:
 ansible --version
 
-Once ansible is started other uploaded files are playbooks for Nginx sever installation.
+Once ansible is started other uploaded files are playbooks for Nginx sever installation, configurations and uninstallation.
