@@ -1,0 +1,56 @@
+Setting up a new server [Launching EC2 instance with proper configurations to run Nginx] in AWS:
+
+# I have launched 2 EC2 instances: 
+a) In the first instance, created server (steps ae decribed below) and installed Nginx package, configured Nginx according to CentOS package and also added rules to redirect it to /version.txt static file.
+
+b) In the second instance, while creating EC2 instance, added userdata script which will run first whenever EC2 instance gets started to configure a web server, so our instance will be bootstrapped in this scenario.
+ec2-userdata.sh:
+#!/bin/bash
+# Use this for your user data (script from top to bottom)
+# install httpd (Linux 2 version)
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
+
+
+
+Note: However, to configure Load balancer in EC2 we can create: 1 ELB instance, 2 EC2 instance and install, configure, start services of Nginx on both servers and add the EC2 instances details in ELB server, so whenever we hit the URL of ELB it will automatically point to any 1      among those 2 EC2 instances and it keeps rotating to both EC2 instances.
+
+Steps to create a server:
+
+1) Log into the EC2 dashboard in the AWS Management Console (https://console.aws.amazon.com/ec2/) and select a region which is closed to user's location. [ in my case: its Canada (central): ca-central-1]
+
+2) Launch instance and select below AMI's to start with:
+   Amazon Linux 2 AMI (HVM), SSD Volume Type - ami-05de9e98f3bef5e8a
+   
+3) Select t2.micro instance type as its free tier eigible.
+
+4) Next configuration Instance details: Choose default Network, subnets
+
+5) Next Add storage: root volume of 8Gib Size.
+
+6) Next Add tags: Key=> Name, Value=> Nginx web server
+
+7) Next configure security groups:
+
+Add rule to add SSH and HTTP types:
+
+Type – HTTP
+Protocol – TCP
+Port Range – 80
+Source – Custom 0.0.0.0/0
+Description – Accept unencrypted HTTP connections from all sources
+
+Type – SSH
+Protocol – TCP
+Port Range – 22
+Source – Custom 0.0.0.0/0
+Description – Accept SSH connections from all sources
+
+8) Review and launch instance
+
+9) Create a key pair and keep it safe so that its not transfered anywhere over the network.
+
+10) Once the instance is up and running, health check is sucess we can use connect to instance and proceed with Nginx installation and configuration.

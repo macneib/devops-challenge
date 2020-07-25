@@ -1,0 +1,6 @@
+### We can run cron job to periodically check if server is running or not. We can schedule cron job at any interval. 
+### In this script I am chekcing it ever 15 minutes with the below command:
+
+*/15 * * * * /home/ec2-user/Nginx/ServerHealthCheck.sh
+
+### [We have to mention the complete path of script ]
